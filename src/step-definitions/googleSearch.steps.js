@@ -1,9 +1,17 @@
-const { Given } = require("cucumber");
-const GoogleSearch = require("../pages/googleSearch.page");
+import { Given, When, Then } from "cucumber";
+import GoogleSearch from "../pages/googleSearch.page";
 
 const googleSearchPage = new GoogleSearch();
 
-Given("I launch google search engine", function() {
-  googleSearchPage.launch();
-  googleSearchPage.validateTitle();
+Given("I launch the url {string}", function(url) {
+  googleSearchPage.launch(url);
+  googleSearchPage.validateTitle(url);
+});
+
+When("I enter {string} in search engine", function(text) {
+  googleSearchPage.searchKeyword(text);
+});
+
+Then("I see the list of search results", function() {
+  googleSearchPage.verifyResultsAreDisplayed();
 });
